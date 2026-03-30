@@ -21,17 +21,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus, Trash2, Clock, Play, Square } from "lucide-react";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { Pencil } from "lucide-react";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export default function TimeTrackingPage() {
-  const [timeLogs, setTimeLogs] = useState<any[]>([]);
-  const [hustles, setHustles] = useState<any[]>([]);
+  interface TimeLog {
+    id: string;
+    hustle_id: string;
+    hours: number;
+    date: string;
+    notes: string | null;
+    hustles?: { name: string };
+  }
+  interface Hustle {
+    id: string;
+    name: string;
+  }
+  const [timeLogs, setTimeLogs] = useState<TimeLog[]>([]);
+  const [hustles, setHustles] = useState<Hustle[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingLog, setEditingLog] = useState<any>(null);
+  const [editingLog, setEditingLog] = useState<TimeLog | null>(null);
   const [timerActive, setTimerActive] = useState(false);
   const [timerStart, setTimerStart] = useState<Date | null>(null);
   const [timerHustle, setTimerHustle] = useState("");
@@ -133,7 +146,7 @@ export default function TimeTrackingPage() {
     });
   }
 
-  function handleEdit(log: any) {
+  function handleEdit(log: { id: string; hustle_id: string; hours: number; date: string; notes: string | null }) {
     setEditingLog(log);
     setFormData({
       hustle_id: log.hustle_id,

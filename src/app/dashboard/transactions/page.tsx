@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Plus, Trash2, Upload, DollarSign, TrendingUp, TrendingDown } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
+import { Pencil } from "lucide-react";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -38,11 +39,26 @@ const transactionCategories = [
 ];
 
 export default function TransactionsPage() {
-  const [transactions, setTransactions] = useState<any[]>([]);
-  const [hustles, setHustles] = useState<any[]>([]);
+  interface Transaction {
+    id: string;
+    hustle_id: string;
+    type: 'income' | 'expense';
+    amount: number;
+    date: string;
+    category: string;
+    description: string | null;
+    receipt_url: string | null;
+    hustles?: { name: string };
+  }
+  interface Hustle {
+    id: string;
+    name: string;
+  }
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [hustles, setHustles] = useState<Hustle[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingTransaction, setEditingTransaction] = useState<any>(null);
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
   const [filter, setFilter] = useState<"all" | "income" | "expense">("all");
   const [formData, setFormData] = useState({
     hustle_id: "",
@@ -137,7 +153,7 @@ export default function TransactionsPage() {
     });
   }
 
-  function handleEdit(transaction: any) {
+  function handleEdit(transaction: { id: string; hustle_id: string; type: 'income' | 'expense'; amount: number; date: string; category: string; description: string | null; receipt_url: string | null }) {
     setEditingTransaction(transaction);
     setFormData({
       hustle_id: transaction.hustle_id,

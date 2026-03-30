@@ -38,10 +38,18 @@ const categories = [
 ];
 
 export default function HustlesPage() {
-  const [hustles, setHustles] = useState<any[]>([]);
+  interface Hustle {
+    id: string;
+    name: string;
+    category: string;
+    is_passive: boolean;
+    start_date: string;
+    notes: string | null;
+  }
+  const [hustles, setHustles] = useState<Hustle[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingHustle, setEditingHustle] = useState<any>(null);
+  const [editingHustle, setEditingHustle] = useState<Hustle | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     category: "freelance",
@@ -122,7 +130,7 @@ export default function HustlesPage() {
     });
   }
 
-  function handleEdit(hustle: any) {
+  function handleEdit(hustle: { id: string; name: string; category: string; is_passive: boolean; start_date: string; notes: string | null }) {
     setEditingHustle(hustle);
     setFormData({
       name: hustle.name,

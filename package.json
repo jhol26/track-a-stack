@@ -21,6 +21,7 @@
     "@supabase/auth-helpers-nextjs": "^0.15.0",
     "@supabase/supabase-js": "^2.100.1",
     "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^1.7.0",
     "next": "14.2.35",
@@ -30,6 +31,7 @@
     "react-hook-form": "^7.72.0",
     "recharts": "^3.8.1",
     "stripe": "^21.0.1",
+    "tailwind-merge": "^3.5.0",
     "tesseract.js": "^7.0.0",
     "zod": "^4.3.6"
   },

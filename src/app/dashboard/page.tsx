@@ -11,6 +11,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpenses: 0,
@@ -30,17 +31,17 @@ export default function DashboardPage() {
       // Fetch transactions
       const { data: transactions } = await supabase
         .from("transactions")
-        .select("type, amount");
+        .select("type, amount") as { data: { type: string; amount: number }[] | null };
 
       // Fetch time logs
       const { data: timeLogs } = await supabase
         .from("time_logs")
-        .select("hours");
+        .select("hours") as { data: { hours: number }[] | null };
 
       // Fetch hustles
       const { data: hustles } = await supabase
         .from("hustles")
-        .select("id");
+        .select("id") as { data: { id: string }[] | null };
 
       const totalIncome = transactions
         ?.filter((t) => t.type === "income")
@@ -158,7 +159,7 @@ function StatCard({
 }: {
   title: string;
   value: string | number;
-  icon: any;
+  icon: React.ElementType;
   trend?: "positive" | "negative";
 }) {
   return (

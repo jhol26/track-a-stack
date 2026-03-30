@@ -13,6 +13,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export default function SignupPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,8 +33,9 @@ export default function SignupPage() {
       if (error) throw error;
 
       setSuccess(true);
-    } catch (err: any) {
-      setError(err.message || "Failed to create account");
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || "Failed to create account");
     } finally {
       setLoading(false);
     }
@@ -50,8 +52,9 @@ export default function SignupPage() {
       });
 
       if (error) throw error;
-    } catch (err: any) {
-      setError(err.message || "Failed to sign up with Google");
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || "Failed to sign up with Google");
     }
   };
 

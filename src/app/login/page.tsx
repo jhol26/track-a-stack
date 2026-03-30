@@ -32,8 +32,9 @@ export default function LoginPage() {
 
       router.push("/dashboard");
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || "Failed to sign in");
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || "Failed to sign in");
     } finally {
       setLoading(false);
     }
@@ -50,8 +51,9 @@ export default function LoginPage() {
       });
 
       if (error) throw error;
-    } catch (err: any) {
-      setError(err.message || "Failed to sign in with Google");
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || "Failed to sign in with Google");
     }
   };
 

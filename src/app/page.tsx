@@ -142,7 +142,7 @@ export default function LandingPage() {
   );
 }
 
-function FeatureCard({ icon: Icon, title, description }: { icon: any, title: string, description: string }) {
+function FeatureCard({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) {
   return (
     <div className="p-6 rounded-lg border bg-card">
       <Icon className="w-12 h-12 text-primary mb-4" />

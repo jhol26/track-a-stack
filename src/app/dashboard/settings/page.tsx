@@ -51,8 +51,9 @@ export default function SettingsPage() {
 
     try {
       const supabase = createClient(supabaseUrl, supabaseAnonKey);
-      const newPassword = (e.target as any).newPassword.value;
-      const confirmPassword = (e.target as any).confirmPassword.value;
+      const form = e.target as HTMLFormElement;
+      const newPassword = (form.elements.namedItem("newPassword") as HTMLInputElement).value;
+      const confirmPassword = (form.elements.namedItem("confirmPassword") as HTMLInputElement).value;
 
       if (newPassword !== confirmPassword) {
         throw new Error("Passwords do not match");
@@ -70,8 +71,9 @@ export default function SettingsPage() {
 
       setMessage("Password updated successfully!");
       (e.target as HTMLFormElement).reset();
-    } catch (err: any) {
-      setMessage(err.message || "Failed to update password");
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setMessage(error.message || "Failed to update password");
     } finally {
       setSaving(false);
     }

@@ -6,14 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Plus, Target, Trophy, CheckCircle } from "lucide-react";
+import { Plus, Target, Trophy, CheckCircle, Trash2 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -28,11 +21,18 @@ const presetGoals = [
 ];
 
 export default function GoalsPage() {
-  const [goals, setGoals] = useState<any[]>([]);
+  interface Goal {
+    id: string;
+    name: string;
+    target_amount: number;
+    current_amount: number;
+    achieved: boolean;
+    created_at: string;
+    updated_at: string;
+  }
+  const [goals, setGoals] = useState<Goal[]>([]);
   const [totalIncome, setTotalIncome] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingGoal, setEditingGoal] = useState<any>(null);
   const [customTarget, setCustomTarget] = useState("");
   const [customName, setCustomName] = useState("");
 
