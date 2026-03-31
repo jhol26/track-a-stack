@@ -83,12 +83,12 @@ export default function HustlesPage() {
       if (editingHustle) {
         const { error } = await supabase
           .from("hustles")
-          .update(formData)
+          .update(formData as any)
           .eq("id", editingHustle.id);
 
         if (error) throw error;
       } else {
-        const { error } = await supabase.from("hustles").insert([formData]);
+        const { error } = await supabase.from("hustles").insert([formData as any]);
 
         if (error) throw error;
       }
