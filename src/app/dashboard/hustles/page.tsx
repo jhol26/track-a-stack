@@ -22,8 +22,14 @@ import {
 } from "@/components/ui/select";
 import { Plus, Pencil, Trash2, Briefcase } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { Database } from "@/types/database";
 
-const supabase = createBrowserClient();
+function getSupabase() {
+  return createBrowserClient();
+}
+
+type HustleInsert = Database["public"]["Tables"]["hustles"]["Insert"];
+type HustleUpdate = Database["public"]["Tables"]["hustles"]["Update"];
 
 const categories = [
   "freelance",
@@ -63,7 +69,8 @@ export default function HustlesPage() {
 
   async function fetchHustles() {
     try {
-      const { data, error } = await supabase
+      const client = getSupabase();
+      const { data, error } = await client
         .from("hustles")
         .select("*")
         .order("created_at", { ascending: false });
@@ -80,15 +87,34 @@ export default function HustlesPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
+      const client = getSupabase();
+      const { data: { user } } = await client.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       if (editingHustle) {
-        const { error } = await supabase
+        const updateData: HustleUpdate = {
+          name: formData.name,
+          category: formData.category,
+          is_passive: formData.is_passive,
+          start_date: formData.start_date,
+          notes: formData.notes || null,
+        };
+        const { error } = await client
           .from("hustles")
-          .update(formData as any)
+          .update(updateData)
           .eq("id", editingHustle.id);
 
         if (error) throw error;
       } else {
-        const { error } = await supabase.from("hustles").insert([formData as any]);
+        const insertData: HustleInsert = {
+          user_id: user.id,
+          name: formData.name,
+          category: formData.category,
+          is_passive: formData.is_passive,
+          start_date: formData.start_date,
+          notes: formData.notes || null,
+        };
+        const { error } = await client.from("hustles").insert([insertData]);
 
         if (error) throw error;
       }
@@ -105,7 +131,8 @@ export default function HustlesPage() {
     if (!confirm("Are you sure you want to delete this hustle?")) return;
 
     try {
-      const { error } = await supabase.from("hustles").delete().eq("id", id);
+      const client = getSupabase();
+      const { error } = await client.from("hustles").delete().eq("id", id);
 
       if (error) throw error;
       fetchHustles();
