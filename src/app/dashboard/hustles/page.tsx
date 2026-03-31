@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@/hooks/use-supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,8 +23,7 @@ import {
 import { Plus, Pencil, Trash2, Briefcase } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createBrowserClient();
 
 const categories = [
   "freelance",
@@ -64,7 +63,6 @@ export default function HustlesPage() {
 
   async function fetchHustles() {
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
       const { data, error } = await supabase
         .from("hustles")
         .select("*")
@@ -82,8 +80,6 @@ export default function HustlesPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
       if (editingHustle) {
         const { error } = await supabase
           .from("hustles")
@@ -109,7 +105,6 @@ export default function HustlesPage() {
     if (!confirm("Are you sure you want to delete this hustle?")) return;
 
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
       const { error } = await supabase.from("hustles").delete().eq("id", id);
 
       if (error) throw error;
