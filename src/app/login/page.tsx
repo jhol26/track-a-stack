@@ -62,7 +62,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <Link href="/" className="text-3xl font-bold text-primary mb-2 block">
-            Vestro
+            Track A Stack
           </Link>
           <CardTitle>Sign in to your account</CardTitle>
           <CardDescription>

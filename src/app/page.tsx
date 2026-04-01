@@ -8,8 +8,9 @@ export default function LandingPage() {
       {/* Header */}
       <header className="border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-primary">
-            Track A Stack
+          <Link href="/" className="flex items-center gap-3">
+            <img src="/logo.jpg" alt="Track A Stack" className="h-12 w-auto" />
+            <span className="text-2xl font-bold text-primary">Track A Stack</span>
           </Link>
           <div className="flex gap-4">
             <Link href="/login">

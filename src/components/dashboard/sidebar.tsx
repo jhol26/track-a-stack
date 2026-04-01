@@ -44,8 +44,9 @@ export function Sidebar() {
   return (
     <aside className="w-64 border-r bg-gradient-to-b from-[#059669] to-[#047857] min-h-screen p-4">
       <div className="mb-8">
-        <Link href="/" className="text-2xl font-bold text-white">
-          Track A Stack
+        <Link href="/" className="flex items-center gap-3">
+          <img src="/logo.jpg" alt="Track A Stack" className="h-10 w-auto" />
+          <span className="text-2xl font-bold text-white">Track A Stack</span>
         </Link>
       </div>
 
