@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { DollarSign, TrendingUp, TrendingDown, Clock, Briefcase } from "lucide-react";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -166,12 +166,12 @@ function StatCard({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <Icon className="w-4 h-4 text-muted-foreground" />
+        <Icon className={cn("w-4 h-4", trend === "positive" ? "text-[#059669]" : trend === "negative" ? "text-[#d97706]" : "text-[#059669]")} />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
         {trend && (
-          <p className="text-xs text-muted-foreground">
+          <p className={cn("text-xs", trend === "positive" ? "text-[#059669]" : "text-[#d97706]")}>
             {trend === "positive" ? "+2.5%" : "-1.2%"} from last month
           </p>
         )}

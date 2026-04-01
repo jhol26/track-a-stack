@@ -42,9 +42,9 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-64 border-r bg-muted/40 min-h-screen p-4">
+    <aside className="w-64 border-r bg-gradient-to-b from-[#059669] to-[#047857] min-h-screen p-4">
       <div className="mb-8">
-        <Link href="/" className="text-2xl font-bold text-primary">
+        <Link href="/" className="text-2xl font-bold text-white">
           Vestro
         </Link>
       </div>
@@ -60,7 +60,8 @@ export function Sidebar() {
                 variant={isActive ? "secondary" : "ghost"}
                 className={cn(
                   "w-full justify-start gap-2",
-                  isActive && "bg-muted font-medium"
+                  isActive && "bg-[#d97706] text-white font-medium hover:bg-[#b45309]",
+                  !isActive && "text-white hover:bg-white/10"
                 )}
               >
                 <Icon className="w-4 h-4" />
@@ -72,7 +73,7 @@ export function Sidebar() {
       </nav>
 
       <div className="mt-auto pt-8">
-        <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleSignOut}>
+        <Button variant="ghost" className="w-full justify-start gap-2 text-white hover:bg-white/10" onClick={handleSignOut}>
           <LogOut className="w-4 h-4" />
           Sign Out
         </Button>
