@@ -35,6 +35,8 @@ export default function GoalsPage() {
   const [loading, setLoading] = useState(true);
   const [customTarget, setCustomTarget] = useState("");
   const [customName, setCustomName] = useState("");
+  const [error, setError] = useState("");
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -67,20 +69,41 @@ export default function GoalsPage() {
   }
 
   async function createGoal(name: string, target: number) {
+    setCreating(true);
+    setError("");
     try {
       const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        setError("Not authenticated. Please sign in again.");
+        setCreating(false);
+        return;
+      }
+
       const { error } = await supabase.from("goals").insert([
         {
+          user_id: user.id,
           name,
           target_amount: target,
           current_amount: totalIncome,
         },
       ]);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error);
+        setError(error.message);
+        return;
+      }
       fetchData();
-    } catch (error) {
+    } catch (err) {
+      const error = err as { message?: string };
       console.error("Error creating goal:", error);
+      setError(error.message || "Failed to create goal");
+    } finally {
+      setCreating(false);
     }
   }
 
