@@ -45,7 +45,7 @@ export function Sidebar() {
     <aside className="w-64 border-r bg-gradient-to-b from-[#059669] to-[#047857] min-h-screen p-4">
       <div className="mb-8">
         <Link href="/" className="text-2xl font-bold text-white">
-          Vestro
+          Track A Stack
         </Link>
       </div>
 

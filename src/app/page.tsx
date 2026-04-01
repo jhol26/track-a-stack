@@ -9,7 +9,7 @@ export default function LandingPage() {
       <header className="border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-primary">
-            Vestro
+            Track A Stack
           </Link>
           <div className="flex gap-4">
             <Link href="/login">
@@ -122,7 +122,7 @@ export default function LandingPage() {
         <div className="bg-primary rounded-2xl p-12 text-primary-foreground">
           <h2 className="text-3xl font-bold mb-4">Ready to Grow Your Hustles?</h2>
           <p className="text-lg mb-8 opacity-90">
-            Join thousands of entrepreneurs tracking their side income with Vestro
+            Join thousands of entrepreneurs tracking their side income with Track A Stack
           </p>
           <Link href="/signup">
             <Button size="lg" variant="secondary" className="gap-2">

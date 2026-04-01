@@ -1,6 +1,6 @@
-# Vestro Deployment Guide
+# Track A Stack Deployment Guide
 
-Beginner-friendly, step-by-step instructions to deploy Vestro to production.
+Beginner-friendly, step-by-step instructions to deploy Track A Stack to production.
 
 ---
 
@@ -20,21 +20,21 @@ Beginner-friendly, step-by-step instructions to deploy Vestro to production.
 
 1. **Initialize Git** (if not already done):
    ```bash
-   cd vestro
+   cd track-a-stack
    git init
    git add .
-   git commit -m "Initial commit: Vestro MVP"
+   git commit -m "Initial commit: Track A Stack MVP"
    ```
 
 2. **Create GitHub Repository**:
    - Go to [github.com/new](https://github.com/new)
-   - Name it `vestro` (or your preferred name)
+   - Name it `track-a-stack` (or your preferred name)
    - Keep it **Private** (recommended)
    - Click "Create repository"
 
 3. **Push Code**:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/vestro.git
+   git remote add origin https://github.com/YOUR_USERNAME/track-a-stack.git
    git branch -M main
    git push -u origin main
    ```
@@ -45,7 +45,7 @@ Beginner-friendly, step-by-step instructions to deploy Vestro to production.
 2. **Sign up/Login** (use GitHub for easiest setup)
 3. **Click "Add New" → "Project"**
 4. **Import your GitHub repo**:
-   - Search for "vestro"
+   - Search for "track-a-stack"
    - Click "Import"
 5. **Configure Project**:
    - Framework Preset: **Next.js** (auto-detected)
@@ -55,7 +55,7 @@ Beginner-friendly, step-by-step instructions to deploy Vestro to production.
 6. **Click "Deploy"**
 
 Vercel will build and deploy your app. You'll get a live URL like:
-`https://vestro-xyz.vercel.app`
+`https://track-a-stack-xyz.vercel.app`
 
 **Don't close this yet!** We need to add environment variables.
 
@@ -69,7 +69,7 @@ Vercel will build and deploy your app. You'll get a live URL like:
 2. **Sign up/Login**
 3. Click **"New Project"**
 4. Fill in:
-   - **Name:** vestro-production
+   - **Name:** track-a-stack-production
    - **Database Password:** Create a strong password (save it!)
    - **Region:** Choose closest to your users
 5. Click **"Create new project"**
@@ -123,7 +123,7 @@ Wait 1-2 minutes for redeployment to complete.
 
 ## Step 4: Test Your Live App
 
-1. Click your Vercel URL (e.g., `https://vestro-xyz.vercel.app`)
+1. Click your Vercel URL (e.g., `https://track-a-stack-xyz.vercel.app`)
 2. **Sign up** with a test email
 3. Check your email for the confirmation link
 4. **Log in** and test the dashboard
@@ -144,27 +144,27 @@ Wait 1-2 minutes for redeployment to complete.
 - **Google Domains:** [domains.google](https://domains.google)
 - **Vercel Market:** [vercel.com/market](https://vercel.com/market)
 
-Recommended: `vestro.com` or similar (if available)
+Recommended: `trackastack.com` or similar (if available)
 
 ### B. Add Domain to Vercel
 
 1. In Vercel dashboard, go to your project
 2. Click **"Settings"** → **"Domains"**
-3. Enter your domain (e.g., `vestro.com`)
+3. Enter your domain (e.g., `trackastack.com`)
 4. Click **"Add"**
 
 ### C. Configure DNS
 
 Vercel will show you DNS records to add. Typically:
 
-**For root domain (`vestro.com`):**
+**For root domain (`trackastack.com`):**
 ```
 Type: A
 Name: @
 Value: 76.76.21.21
 ```
 
-**For www subdomain (`www.vestro.com`):**
+**For www subdomain (`www.trackastack.com`):**
 ```
 Type: CNAME
 Name: www
@@ -189,11 +189,11 @@ Add these in your domain registrar's DNS settings.
 
 1. Go to **Products** → **"Add Product"**
 2. Create **Pro Plan**:
-   - Name: Vestro Pro
+   - Name: Track A Stack Pro
    - Price: $9/month
    - Billing: Recurring
 3. Create **Business Plan**:
-   - Name: Vestro Business
+   - Name: Track A Stack Business
    - Price: $19/month
    - Billing: Recurring
 
@@ -231,7 +231,7 @@ In Vercel **Settings** → **Environment Variables**:
 ### A. Create Google Cloud Project
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. **Create new project** (name: "Vestro")
+2. **Create new project** (name: "Track A Stack")
 3. Go to **APIs & Services** → **Credentials**
 4. Click **"Create Credentials"** → **"OAuth client ID"**
 
@@ -241,7 +241,7 @@ In Vercel **Settings** → **Environment Variables**:
 2. **Authorized redirect URIs:**
    ```
    https://your-domain.com/auth/callback
-   https://vestro-xyz.vercel.app/auth/callback
+   https://track-a-stack-xyz.vercel.app/auth/callback
    ```
 3. Click **"Create"**
 4. Copy:
@@ -349,3 +349,4 @@ If your app uses these directly, add as environment variables:
 **You're live! 🚀**
 
 Now focus on getting users and iterating based on feedback.
+dback.

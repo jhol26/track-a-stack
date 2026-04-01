@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Vestro - Side Hustle Income Tracker",
+  title: "Track A Stack - Side Hustle Income Tracker",
   description: "Track income, expenses, goals, and time across multiple side hustles",
 };
 

@@ -1,8 +1,8 @@
-# Vestro - Side Hustle Income Tracker
+# Track A Stack - Side Hustle Income Tracker
 
 An all-in-one platform to track income, expenses, goals, taxes, and time across multiple side hustles.
 
-![Vestro](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![Track A Stack](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css)
 ![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?logo=supabase)
@@ -41,7 +41,7 @@ An all-in-one platform to track income, expenses, goals, taxes, and time across 
 ### 1. Clone and Install
 
 ```bash
-cd vestro
+cd track-a-stack
 npm install
 ```
 
@@ -77,7 +77,7 @@ Open [http://localhost:3000](http://localhost:3000)
 ## Project Structure
 
 ```
-vestro/
+track-a-stack/
 ├── src/
 │   ├── app/
 │   │   ├── dashboard/       # Protected dashboard pages
@@ -129,3 +129,4 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for step-by-step Vercel deployment instruct
 ## License
 
 MIT - Built for hustlers everywhere 🚀
+e 🚀
