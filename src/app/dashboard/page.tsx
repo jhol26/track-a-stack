@@ -5,16 +5,12 @@ import { createClient } from "@supabase/supabase-js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, cn } from "@/lib/utils";
 import { DollarSign, TrendingUp, TrendingDown, Clock, Briefcase } from "lucide-react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
-
-const COLORS = ["#059669", "#047857", "#0369a1", "#7c3aed", "#db2777", "#ea580c", "#ca8a04", "#16a34a"];
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpenses: 0,
@@ -31,17 +27,14 @@ export default function DashboardPage() {
     try {
       const supabase = createClient(supabaseUrl, supabaseAnonKey);
       
-      // Fetch transactions
       const { data: transactions } = await supabase
         .from("transactions")
         .select("type, amount") as { data: { type: string; amount: number }[] | null };
 
-      // Fetch time logs
       const { data: timeLogs } = await supabase
         .from("time_logs")
         .select("hours") as { data: { hours: number }[] | null };
 
-      // Fetch hustles
       const { data: hustles } = await supabase
         .from("hustles")
         .select("id") as { data: { id: string }[] | null };
@@ -135,56 +128,6 @@ export default function DashboardPage() {
                     : "$0.00"}
                 </span>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground text-sm">
-              Add your first hustle to get started tracking your income and expenses.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-}
-
-function StatCard({
-  title,
-  value,
-  icon: Icon,
-  trend,
-}: {
-  title: string;
-  value: string | number;
-  icon: React.ElementType;
-  trend?: "positive" | "negative";
-}) {
-  return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <Icon className={cn("w-4 h-4", trend === "positive" ? "text-[#059669]" : trend === "negative" ? "text-[#d97706]" : "text-[#059669]")} />
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        {trend && (
-          <p className={cn("text-xs", trend === "positive" ? "text-[#059669]" : "text-[#d97706]")}>
-            {trend === "positive" ? "+2.5%" : "-1.2%"} from last month
-          </p>
-        )}
-      </CardContent>
-    </Card>
-  );
-}
-  );
-}
-         </div>
             </div>
           </CardContent>
         </Card>
