@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@/hooks/use-supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,8 +24,9 @@ import { Plus, Trash2, Upload, DollarSign, TrendingUp, TrendingDown } from "luci
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+function getSupabase() {
+  return createBrowserClient();
+}
 
 const transactionCategories = [
   "sales",
@@ -76,16 +77,19 @@ export default function TransactionsPage() {
 
   async function fetchData() {
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      const supabase = getSupabase();
       
-      const { data: transactionsData } = await supabase
+      const { data: transactionsData, error: transError } = await supabase
         .from("transactions")
         .select("*, hustles(name)")
         .order("date", { ascending: false });
 
-      const { data: hustlesData } = await supabase
+      const { data: hustlesData, error: hustlesError } = await supabase
         .from("hustles")
         .select("id, name");
+
+      if (transError) console.error("Error fetching transactions:", transError);
+      if (hustlesError) console.error("Error fetching hustles:", hustlesError);
 
       setTransactions(transactionsData || []);
       setHustles(hustlesData || []);
@@ -99,23 +103,28 @@ export default function TransactionsPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      const supabase = getSupabase();
       const data = {
         ...formData,
         amount: parseFloat(formData.amount),
       };
 
+      let error;
       if (editingTransaction) {
-        const { error } = await supabase
+        const result = await supabase
           .from("transactions")
           .update(data)
           .eq("id", editingTransaction.id);
-
-        if (error) throw error;
+        error = result.error;
       } else {
-        const { error } = await supabase.from("transactions").insert([data]);
+        const result = await supabase.from("transactions").insert([data]);
+        error = result.error;
+      }
 
-        if (error) throw error;
+      if (error) {
+        console.error("Save error details:", error);
+        alert(`Failed to save transaction: ${error.message}`);
+        throw error;
       }
 
       setIsDialogOpen(false);
@@ -130,10 +139,14 @@ export default function TransactionsPage() {
     if (!confirm("Are you sure you want to delete this transaction?")) return;
 
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      const supabase = getSupabase();
       const { error } = await supabase.from("transactions").delete().eq("id", id);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Delete error:", error);
+        alert(`Failed to delete: ${error.message}`);
+        throw error;
+      }
       fetchData();
     } catch (error) {
       console.error("Error deleting transaction:", error);

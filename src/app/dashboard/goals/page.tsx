@@ -8,9 +8,12 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Target, Trophy, CheckCircle, Trash2 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { useAuth } from "@/components/supabase-auth-provider";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const presetGoals = [
   { name: "Replace 9-5 Income", target: 5000 },
@@ -30,6 +33,7 @@ export default function GoalsPage() {
     created_at: string;
     updated_at: string;
   }
+  const { user, loading: authLoading } = useAuth();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [totalIncome, setTotalIncome] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -39,13 +43,13 @@ export default function GoalsPage() {
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (!authLoading) {
+      fetchData();
+    }
+  }, [authLoading]);
 
   async function fetchData() {
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
       const { data: goalsData } = await supabase
         .from("goals")
         .select("*")
@@ -72,11 +76,6 @@ export default function GoalsPage() {
     setCreating(true);
     setError("");
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
-      
-      // Get current user
-      const { data: { user } } = await supabase.auth.getUser();
-      
       if (!user) {
         setError("Not authenticated. Please sign in again.");
         setCreating(false);
@@ -151,8 +150,12 @@ export default function GoalsPage() {
     }
   }
 
-  if (loading) {
+  if (authLoading || loading) {
     return <div className="flex items-center justify-center h-64">Loading...</div>;
+  }
+
+  if (!user) {
+    return <div className="flex items-center justify-center h-64">Please sign in to view goals</div>;
   }
 
   return (

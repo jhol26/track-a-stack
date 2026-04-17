@@ -5,11 +5,15 @@ import { createClient } from "@supabase/supabase-js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, cn } from "@/lib/utils";
 import { DollarSign, TrendingUp, TrendingDown, Clock, Briefcase } from "lucide-react";
+import { useAuth } from "@/components/supabase-auth-provider";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 export default function DashboardPage() {
+  const { loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalIncome: 0,
@@ -20,13 +24,13 @@ export default function DashboardPage() {
   });
 
   useEffect(() => {
-    fetchDashboardData();
-  }, []);
+    if (!authLoading) {
+      fetchDashboardData();
+    }
+  }, [authLoading]);
 
   async function fetchDashboardData() {
     try {
-      const supabase = createClient(supabaseUrl, supabaseAnonKey);
-      
       const { data: transactions } = await supabase
         .from("transactions")
         .select("type, amount") as { data: { type: string; amount: number }[] | null };
@@ -63,7 +67,7 @@ export default function DashboardPage() {
     }
   }
 
-  if (loading) {
+  if (authLoading || loading) {
     return <div className="flex items-center justify-center h-64">Loading...</div>;
   }
 
