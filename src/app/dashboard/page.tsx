@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, cn } from "@/lib/utils";
 import { DollarSign, TrendingUp, TrendingDown, Clock, Briefcase } from "lucide-react";
 import { useAuth } from "@/components/supabase-auth-provider";
+import { IncomePieChart } from "@/components/dashboard/income-pie-chart";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -110,6 +111,8 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
+        <IncomePieChart />
+
         <Card>
           <CardHeader>
             <CardTitle>Quick Stats</CardTitle>
@@ -133,17 +136,6 @@ export default function DashboardPage() {
                 </span>
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground text-sm">
-              Add your first hustle to get started tracking your income and expenses.
-            </p>
           </CardContent>
         </Card>
       </div>
