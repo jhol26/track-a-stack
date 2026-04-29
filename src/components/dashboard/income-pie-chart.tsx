@@ -130,7 +130,7 @@ export function IncomePieChart() {
         <CardTitle>Income by Hustle</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="h-80">
+        <div className="h-[300px] sm:h-80">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -153,7 +153,7 @@ export function IncomePieChart() {
               <Tooltip
                 formatter={(value) => [`$${Number(value).toFixed(2)}`, "Income"]}
               />
-              <Legend />
+              <Legend wrapperStyle={{ fontSize: '12px' }} />
             </PieChart>
           </ResponsiveContainer>
         </div>

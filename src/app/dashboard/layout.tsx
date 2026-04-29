@@ -9,8 +9,8 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <DashboardSidebar />
-      <SidebarInset className="flex-1">
-        <main className="flex-1 p-4 md:p-8">{children}</main>
+      <SidebarInset className="flex-1 overflow-auto">
+        <main className="flex-1 p-4 sm:p-6 md:p-8">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
