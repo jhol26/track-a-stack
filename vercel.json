@@ -1,0 +1,11 @@
+{
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://xwginwfiddtieisumqih.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Z2lud2ZpZGR0aWVpc3VtcWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4ODM0MzIsImV4cCI6MjA5MDQ1OTQzMn0.SosnqaeZ6g2A3yZ9AIpkKas2qfLz8Q4LN_sgiCmxxWk",
+    "STRIPE_SECRET_KEY": "sk_test_placeholder",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_placeholder",
+    "NEXT_PUBLIC_STRIPE_PRICE_ID_PROD": "price_placeholder",
+    "NEXT_PUBLIC_STRIPE_PRICE_ID_BUSINESS": "price_placeholder",
+    "STRIPE_WEBHOOK_SECRET": "whsec_placeholder"
+  }
+}
